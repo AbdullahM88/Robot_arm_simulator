@@ -1,0 +1,24 @@
+open a new termanil window in ubuntu
+#Let's first test the robot arm
+Move to the urdf folder of your package, use the following command >> roscd mobile_manipulator_body/urdf/
+next, create a file named robot_arm.urdf >> gedit robot_arm.urdf
+let’s launch the robot arm >> roslaunch urdf_tutorial display.launch model:=robot_arm.urdf
+*you can check the sliders button and move the arm
+#Now, let’s set up the configuration parameters for the controllers
+Go to the config file of your package >> oscd mobile_manipulator_body/config/
+create a file named arm_control.yaml >> gedit arm_control.yaml
+now, add the file inside there >> https://drive.google.com/drive/folders/1UlkrsKflhNXCpGrL4QA26yL3ezgKfteg?usp=sharing
+create a another file named joint_state_controller.yaml >> gedit joint_state_controller.yaml
+now, add the file inside there >> https://drive.google.com/drive/folders/1UlkrsKflhNXCpGrL4QA26yL3ezgKfteg?usp=sharing
+save and close all files
+#Now let’s launch the robot arm.
+Open a new terminal window, and go to the package >> roscd mobile_manipulator_body/launch/
+Create a new launch file >> gedit arm_gazebo_control.launch
+now, add the file inside there >> https://drive.google.com/drive/folders/1Acv58Up41u5pYDM5yE1jru_YoVbn_rCl?usp=sharing
+let’s launch the robot in Gazebo >> roslaunch mobile_manipulator_body arm_gazebo_control.launch
+now, the robot arm will show 
+write the following command to move the arm >> rostopic pub /arm_controller/command trajectory_msgs/JointTrajectory 
+'{joint_names: ["arm_base_joint","shoulder_joint", "bottom_wrist_joint", "elbow_joint","top_wrist_joint"], 
+points: [{positions: [-0.1, 0.5, 0.02, 0, 0], time_from_start: [1,0]}]}' -1 <<
+
+##References: https://amzn.to/3h5JmO4
